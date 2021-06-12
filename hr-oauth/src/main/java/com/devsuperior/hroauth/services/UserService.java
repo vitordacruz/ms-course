@@ -28,4 +28,17 @@ public class UserService {
 		
 	}
 	
+	public User findById(Long id) {
+		
+		User user = userFeignClient.findById(id).getBody();
+	
+		if (user == null) {
+			logger.error("User not found: " + id);
+			throw new IllegalArgumentException("User not found");
+		}
+		logger.info("User found: " +  id);
+		return user;
+		
+	}
+	
 }
